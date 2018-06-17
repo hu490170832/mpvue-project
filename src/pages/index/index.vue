@@ -32,7 +32,6 @@ export default {
       userInfo: {}
     }
   },
-
   components: {
     card
   },
