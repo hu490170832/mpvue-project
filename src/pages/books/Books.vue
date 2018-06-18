@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div class="books">
+    图书列表
   </div>
 </template>
 
