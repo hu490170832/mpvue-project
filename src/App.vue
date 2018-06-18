@@ -1,15 +1,8 @@
-<template>
-  <div>
-
-  </div>
-</template>
 
 <script>
-  export default {
-    
-  }
 </script>
 
-<style scoped>
-
+<style lang='stylus'>
+  page
+    font-size 16px
 </style>

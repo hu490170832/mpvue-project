@@ -1,15 +1,16 @@
 <template>
   <div class="books">
-    图书列表
   </div>
 </template>
 
 <script>
   export default {
-    
+    created() {
+    }
   }
 </script>
 
-<style scoped>
-
+<style lang='stylus' scoped>
+  .books
+    background red
 </style>

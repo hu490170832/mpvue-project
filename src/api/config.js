@@ -1,0 +1,4 @@
+const host = 'http://192.168.0.122:5757'
+export const config = {
+    loginUrl: `${host}/weapp/login`
+}

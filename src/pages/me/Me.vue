@@ -1,15 +1,70 @@
 <template>
-    <div>
-
+    <div class="me">
+        <img class="headerImg" :src="imgUrl" alt="">
+        <div class="name">{{userInfo.nickName}}</div>
+        <year-progress></year-progress>
+        <button @click="scanbook" class="button">添加图书</button>
     </div>
 </template>
 
 <script>
+    import {
+        login
+    } from '@/api/me'
+    import YearProgress from './components/YearProgress'
     export default {
-        
+        data() {
+            return {
+                userInfo: {}
+            }
+        },
+        computed: {
+            imgUrl() {
+                return this.userInfo.avatarUrl ? this.userInfo.avatarUrl: 'http://image.shengxinjing.cn/rate/unlogin.png'
+            }
+        },
+        created() {
+            this._login()
+        },
+        methods: {
+            async _login() {
+                var res = await login()
+                this.userInfo = res
+                console.log(res)
+            },
+            scanbook() {
+                wx.scanCode({
+                    success: (res) => {
+                        console.log(res)
+                    }
+                })
+            }
+        },
+        components: {
+            YearProgress
+        }
     }
 </script>
 
-<style scoped>
-
+<style lang='stylus'>
+    .me
+        display flex
+        flex-direction column
+        align-items center;
+        padding-top 40px
+        .headerImg
+            width: 75px;
+            height:75px;
+            margin: 10px;
+            border-radius: 50%;
+        .button
+            width 80%
+            height 40px
+            line-height 40px;
+            border-radius 5px
+            color #fff
+            text-align center
+            background #EA5149
+            font-size 14px
+            margin-top 10rpx
 </style>
