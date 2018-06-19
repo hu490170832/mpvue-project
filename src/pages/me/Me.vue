@@ -9,7 +9,7 @@
 
 <script>
     import {
-        login
+        login,addBook
     } from '@/api/me'
     import YearProgress from './components/YearProgress'
     export default {
@@ -32,10 +32,17 @@
                 this.userInfo = res
                 console.log(res)
             },
-            scanbook() {
+            async _addBook(data) {
+                var res = await addBook(data)
+                console.log(res)
+            },
+            async scanbook() {
                 wx.scanCode({
                     success: (res) => {
-                        console.log(res)
+                        this._addBook({
+                            openId:this.userInfo.openId,
+                            isbn:res.result
+                        })
                     }
                 })
             }

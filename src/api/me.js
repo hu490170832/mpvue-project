@@ -1,16 +1,15 @@
 import qcloud from 'wafer2-client-sdk'
-import {config} from './config'
+import {host,post} from './config'
 import {getStorageUserInfo,setStorageUserInfo} from '@/common/cache'
+
 export function login() {
-    
     return new Promise(function(resolve,reject){
         var userInfo = getStorageUserInfo()
-        console.log(userInfo)
         if(userInfo) {
             resolve(userInfo)
             return
         }
-        qcloud.setLoginUrl(config.loginUrl)
+        qcloud.setLoginUrl(host+'/weapp/login')
         qcloud.login({
             success: function(res) {
                 resolve(res)
@@ -19,5 +18,9 @@ export function login() {
             }
         })
     })
-    
 }
+
+export async function addBook(data) {
+    return post('/weapp/addBook',data)
+}
+
