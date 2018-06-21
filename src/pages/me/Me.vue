@@ -40,7 +40,7 @@
                 wx.scanCode({
                     success: (res) => {
                         this._addBook({
-                            openId:this.userInfo.openId,
+                            openid:this.userInfo.openId,
                             isbn:res.result
                         })
                     }
