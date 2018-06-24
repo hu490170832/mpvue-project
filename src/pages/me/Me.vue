@@ -11,6 +11,7 @@
     import {
         login,addBook
     } from '@/api/me'
+    import {ERR_OK} from '@/api/config'
     import YearProgress from './components/YearProgress'
     export default {
         data() {
@@ -30,11 +31,16 @@
             async _login() {
                 var res = await login()
                 this.userInfo = res
-                console.log(res)
             },
             async _addBook(data) {
                 var res = await addBook(data)
-                console.log(res)
+                if(res.code === ERR_OK) {
+                    wx.showToast({
+                        title: '添加成功',
+                        icon: 'success',
+                        duration: 2000
+                    })
+                }
             },
             async scanbook() {
                 wx.scanCode({

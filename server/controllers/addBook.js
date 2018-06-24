@@ -24,18 +24,14 @@ module.exports = async (ctx)=>{
     const author = res.author.join(',')
     const tags = res.tags.map(item=>{
         return item.title + ' ' + item.count
-    }).join(',')
+    })
     const {title,image,alt,price,summary,publisher} = res
 
     await mysql('books').insert({
-        // isbn, openid, rate, title, image, alt, publisher, summary, price, tags, author
         isbn, openid, rate, title, image, alt, publisher, summary, price, tags, author
     })
-    ctx.state = {
-        code: 0,
-        data: {
-            title
-        }
+    ctx.state.data = {
+        title
     }
 }
 
