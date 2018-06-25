@@ -6,9 +6,12 @@
           <img mode = 'aspectFit' :src='item.image' />
         </div>
         <div class="content">
-          <div class="line">
+          <div class="line title-line">
             <span class="title">{{item.title}}</span>
-            <span class="rate">{{item.rate}}</span>
+            <div class="right">
+              <span class="rate">{{item.rate}}</span>
+              <rate :rate='item.rate'></rate>
+            </div>
           </div>
           <div class="line">
             <span class="author">{{item.author}}</span>
@@ -28,6 +31,7 @@
   import {
     getBookList
   } from '@/api/books'
+  import rate from '@/components/rate'
   import {
     ERR_OK
   } from "@/api/config";
@@ -37,17 +41,19 @@
         bookList: []
       }
     },
-    created() {
+    onShow() {
       this._getBookList()
     },
     methods: {
       async _getBookList() {
         let res = await getBookList()
-        console.log(res)
-        if (res.code == ERR_OK) {
+        if(res.code == ERR_OK) {
           this.bookList = res.data.bookList
         }
       }
+    },
+    components: {
+      rate
     }
   }
 </script>
@@ -70,4 +76,8 @@
           .line
             display flex
             justify-content space-between
+            &.title-line
+              color #EA5149
+            .right
+              display flex
 </style>

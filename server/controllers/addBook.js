@@ -24,7 +24,7 @@ module.exports = async (ctx)=>{
     const author = res.author.join(',')
     const tags = res.tags.map(item=>{
         return item.title + ' ' + item.count
-    })
+    }).join(',')
     const {title,image,alt,price,summary,publisher} = res
 
     await mysql('books').insert({
