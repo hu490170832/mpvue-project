@@ -108,8 +108,10 @@
 <style lang='stylus' scoped>
   .books
     .swiper
+      margin-bottom 20px
       .slide-image
-        width 30%
+        width 100%
+        height 100%
     .bookList
       .item
         display flex
