@@ -1,4 +1,8 @@
-import {host,get} from './config'
-export function getBookList() {
-    return get('/weapp/getBookList')
+import {get} from './config'
+export function getBookList(params) {
+    return get('/weapp/getBookList',params)
+}
+
+export function getTopList() {
+    return get('/weapp/getTopList')
 }

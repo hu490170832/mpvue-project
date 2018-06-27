@@ -15,7 +15,6 @@
         },
         computed: {
             rateStyle() {
-                console.log(this.rate)
                 let width = (this.rate/10*5).toFixed(1)
                 return `width: ${width}em;`
             }
