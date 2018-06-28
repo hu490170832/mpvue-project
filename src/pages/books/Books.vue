@@ -2,10 +2,10 @@
   <div class="books">
     <div class="swiper">
       <swiper
-        :autoplay="false" interval="1000" duration="1000" display-multiple-items='3'>
+        :autoplay="true" interval='2000' duration='300' display-multiple-items='3'>
         <div v-for='item in topList' :key="item.id">
           <swiper-item>
-            <image mode = 'aspectFit' :src="item.image" class="slide-image"/>
+            <img @click="goDetail(item.id)" mode = 'aspectFit' :src="item.image" class="slide-image"/>
           </swiper-item>
         </div>
       </swiper>
@@ -13,7 +13,7 @@
     <div class="bookList">
       <a :href="'/pages/bookDetail/main?id='+item.id" v-for='item in bookList' :key = 'item.id' class="item">
         <div class="img">
-          <img mode = 'aspectFit' :src='item.image' />
+          <img @click.stop="previewImage(item.image)" mode = 'aspectFit' :src='item.image' />
         </div>
         <div class="content">
           <div class="line title-line">
@@ -61,6 +61,7 @@
     },
     async onPullDownRefresh() {
       await this._getBookList(true)
+      this._getTopList()
     },
     onReachBottom() {
       if(!this.hasMore) {
@@ -97,6 +98,17 @@
           }
         }
         wx.hideNavigationBarLoading()
+      },
+      goDetail(id) {
+        wx.navigateTo({
+          url: '/pages/bookDetail/main?id='+id
+        })
+      },
+      previewImage(imgUrl) {
+        wx.previewImage({
+          current: imgUrl, // 当前显示图片的http链接
+          urls: [imgUrl] // 需要预览的图片http链接列表
+        })
       }
     },
     components: {
