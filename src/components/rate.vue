@@ -1,5 +1,5 @@
 <template>
-    <div class="rate">
+    <div class="rate text-red-color">
         <span class="bg-star">☆☆☆☆☆</span>
         <span class="cover" :style='rateStyle'>★★★★★</span>
     </div>
