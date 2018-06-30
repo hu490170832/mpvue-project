@@ -1,7 +1,7 @@
 import { resolve } from "path";
 
-export const host = 'http://172.16.18.35:5757'
-// export const host = 'http://192.168.0.122:5757'
+// export const host = 'http://172.16.18.35:5757'
+export const host = 'http://192.168.0.122:5757'
 // export const host = 'https://s35dsezw.qcloud.la'
 export const ERR_OK = 0
 

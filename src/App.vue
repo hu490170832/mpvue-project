@@ -9,4 +9,6 @@
     color #EA5149
   .text-center
     text-align center
+  .bg-red-color
+    background #EA5149
 </style>
