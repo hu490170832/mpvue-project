@@ -24,9 +24,9 @@
 
 <script>
     export default {
-        props:['commentList'],
-        created() {
-        }
+      props: ['commentList'],
+      created () {
+      }
     }
 </script>
 

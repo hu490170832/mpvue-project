@@ -9,53 +9,53 @@
 
 <script>
     import {
-        login,addBook
+      login, addBook
     } from '@/api/me'
     import {ERR_OK} from '@/api/config'
     import YearProgress from './components/YearProgress'
     export default {
-        data() {
-            return {
-                userInfo: {}
-            }
-        },
-        computed: {
-            imgUrl() {
-                return this.userInfo.avatarUrl ? this.userInfo.avatarUrl: 'http://image.shengxinjing.cn/rate/unlogin.png'
-            }
-        },
-        created() {
-            this._login()
-        },
-        methods: {
-            async _login() {
-                var res = await login()
-                this.userInfo = res
-            },
-            async _addBook(data) {
-                var res = await addBook(data)
-                if(res.code === ERR_OK) {
-                    wx.showToast({
-                        title: '添加成功',
-                        icon: 'success',
-                        duration: 2000
-                    })
-                }
-            },
-            async scanbook() {
-                wx.scanCode({
-                    success: (res) => {
-                        this._addBook({
-                            openid:this.userInfo.openId,
-                            isbn:res.result
-                        })
-                    }
-                })
-            }
-        },
-        components: {
-            YearProgress
+      data () {
+        return {
+          userInfo: {}
         }
+      },
+      computed: {
+        imgUrl () {
+          return this.userInfo.avatarUrl ? this.userInfo.avatarUrl : 'http://image.shengxinjing.cn/rate/unlogin.png'
+        }
+      },
+      created () {
+        this._login()
+      },
+      methods: {
+        async _login () {
+          var res = await login()
+          this.userInfo = res
+        },
+        async _addBook (data) {
+          var res = await addBook(data)
+          if (res.code === ERR_OK) {
+            wx.showToast({
+              title: '添加成功',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        },
+        async scanbook () {
+          wx.scanCode({
+            success: (res) => {
+              this._addBook({
+                openid: this.userInfo.openId,
+                isbn: res.result
+              })
+            }
+          })
+        }
+      },
+      components: {
+        YearProgress
+      }
     }
 </script>
 

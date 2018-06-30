@@ -52,115 +52,114 @@
 </template>
 
 <script>
-    import {getBookDetail,getPlace,addComment,getCommentList} from '@/api/bookDetail'
+    import {getBookDetail, getPlace, addComment, getCommentList} from '@/api/bookDetail'
     import {getStorageUserInfo} from '@/common/cache'
     import {ERR_OK} from '@/api/config'
     import rate from '@/components/rate'
     import commentList from '@/components/commentList'
     export default {
-        data() {
-            return {
-                bookId: '',
-                bookInfo: {},
-                userInfo: {},
-                comment: '',
-                commentList: [],
-                phoneType: '',
-                city: '',
-                openid: ''
-            }
-        },
-        computed: {
-            isAlreadyComment() {
-                return this.commentList.filter(v=>{
-                    return v.openid == this.openid
-                }).length>0
-            }
-        },
-        mounted() {
-            let bookId = this.$root.$mp.query.id
-            this.bookId = bookId
-            const userInfo = getStorageUserInfo()
-            console.log(userInfo)
-            this.openid = userInfo ? userInfo.openId : ''
-            this._getBookDetail()
-            this._getCommentsList()
-        },
-        onShareAppMessage: function (res) {
-            return {
-                title: this.bookInfo.title,
-                path: 'pages/bookDetail/main?id='+this.bookId
-            }
-        },
-        methods:{
-            async _getBookDetail() {
-                let res = await getBookDetail({
-                    id: this.bookId
-                })
-                if(res.code==ERR_OK) {
-                    this.bookInfo = res.data.bookInfo
-                    this.userInfo = res.data.userInfo
-                    wx.setNavigationBarTitle({
-                        title: res.data.bookInfo.title
-                    })
-                }
-            },
-            async _getCommentsList() {
-                let res = await getCommentList(this.bookId)
-                if(res.code == ERR_OK) {
-                    this.commentList = res.data.commentList
-                }
-                console.log(res)
-            },
-            previewImg() {
-                wx.previewImage({
-                    current: this.bookInfo.image, // 当前显示图片的http链接
-                    urls: [this.bookInfo.image] // 需要预览的图片http链接列表
-                })
-            },
-            placeChange(e) {
-                const checked = e.target.value
-                if(checked) {
-                    wx.getLocation({
-                        success: async res=> {
-                            const location = res.latitude+','+ res.longitude
-                            const placeInfo = await getPlace(location)
-                            this.city = placeInfo.addressComponent.city
-                        }
-                    })
-                    
-                }
-            },
-            phoneChange(e) {
-                const checked = e.target.value
-                if(checked) {
-                    const stystemInfo = wx.getSystemInfoSync()
-                    this.phoneType = stystemInfo.model
-                }else {
-                    this.phoneType = ''
-                }
-            },
-            async addcommentClick() {
-                const data = {
-                    bookid: this.bookId,
-                    comment: this.comment,
-                    location: this.city,
-                    openid: this.openid,
-                    phone: this.phoneType
-                }   
-                const res = await addComment(data)
-                if(res.code == ERR_OK) {
-                    wx.showLoading({
-                        title: res.data.title,
-                        mask:true
-                    })
-                }
-            }
-        },
-        components:{
-            rate,
-            commentList
+      data () {
+        return {
+          bookId: '',
+          bookInfo: {},
+          userInfo: {},
+          comment: '',
+          commentList: [],
+          phoneType: '',
+          city: '',
+          openid: ''
         }
+      },
+      computed: {
+        isAlreadyComment () {
+          return this.commentList.filter(v => {
+            return v.openid === this.openid
+          }).length > 0
+        }
+      },
+      mounted () {
+        let bookId = this.$root.$mp.query.id
+        this.bookId = bookId
+        const userInfo = getStorageUserInfo()
+        console.log(userInfo)
+        this.openid = userInfo ? userInfo.openId : ''
+        this._getBookDetail()
+        this._getCommentsList()
+      },
+      onShareAppMessage: function (res) {
+        return {
+          title: this.bookInfo.title,
+          path: 'pages/bookDetail/main?id=' + this.bookId
+        }
+      },
+      methods: {
+        async _getBookDetail () {
+          let res = await getBookDetail({
+            id: this.bookId
+          })
+          if (res.code === ERR_OK) {
+            this.bookInfo = res.data.bookInfo
+            this.userInfo = res.data.userInfo
+            wx.setNavigationBarTitle({
+              title: res.data.bookInfo.title
+            })
+          }
+        },
+        async _getCommentsList () {
+          let res = await getCommentList(this.bookId)
+          if (res.code === ERR_OK) {
+            this.commentList = res.data.commentList
+          }
+          console.log(res)
+        },
+        previewImg () {
+          wx.previewImage({
+            current: this.bookInfo.image, // 当前显示图片的http链接
+            urls: [this.bookInfo.image] // 需要预览的图片http链接列表
+          })
+        },
+        placeChange (e) {
+          const checked = e.target.value
+          if (checked) {
+            wx.getLocation({
+              success: async res => {
+                const location = res.latitude + ',' + res.longitude
+                const placeInfo = await getPlace(location)
+                this.city = placeInfo.addressComponent.city
+              }
+            })
+          }
+        },
+        phoneChange (e) {
+          const checked = e.target.value
+          if (checked) {
+            const stystemInfo = wx.getSystemInfoSync()
+            this.phoneType = stystemInfo.model
+          } else {
+            this.phoneType = ''
+          }
+        },
+        async addcommentClick () {
+          const data = {
+            bookid: this.bookId,
+            comment: this.comment,
+            location: this.city,
+            openid: this.openid,
+            phone: this.phoneType
+          }
+          const res = await addComment(data)
+          if (res.code === ERR_OK) {
+            wx.showLoading({
+              title: res.data.title,
+              mask: true
+            })
+          }
+        }
+      },
+      components: {
+        rate,
+        commentList
+      }
     }
 </script>
 

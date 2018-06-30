@@ -7,19 +7,19 @@
 
 <script>
     export default {
-        props: {
-            rate: {
-                type: [Number,String],
-                default: 0
-            }
-        },
-        computed: {
-            rateStyle() {
-                let width = (this.rate/10*5).toFixed(1)
-                return `width: ${width}em;`
-            }
-
+      props: {
+        rate: {
+          type: [Number, String],
+          default: 0
         }
+      },
+      computed: {
+        rateStyle () {
+          let width = (this.rate / 10 * 5).toFixed(1)
+          return `width: ${width}em;`
+        }
+
+      }
     }
 </script>
 

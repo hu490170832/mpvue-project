@@ -40,45 +40,45 @@
 
 <script>
   import {
-    getBookList,getTopList
+    getBookList, getTopList
   } from '@/api/books'
   import rate from '@/components/rate'
   import {
     ERR_OK
-  } from "@/api/config";
-  export default {
-    data() {
+  } from '@/api/config'
+export default {
+    data () {
       return {
         bookList: [],
         topList: [],
-        page:0,
+        page: 0,
         hasMore: true
       }
     },
-    mounted() {
+    mounted () {
       this._getBookList()
       this._getTopList()
     },
-    async onPullDownRefresh() {
+    async onPullDownRefresh () {
       await this._getBookList(true)
       this._getTopList()
     },
-    onReachBottom() {
-      if(!this.hasMore) {
+    onReachBottom () {
+      if (!this.hasMore) {
         return
       }
       this.page++
       this._getBookList()
     },
     methods: {
-      async _getTopList() {
+      async _getTopList () {
         const res = await getTopList()
-        if(res.code == ERR_OK) {
+        if (res.code === ERR_OK) {
           this.topList = res.data.topList
         }
       },
-      async _getBookList(init) {
-        if(init) {
+      async _getBookList (init) {
+        if (init) {
           this.page = 0
           this.hasMore = true
         }
@@ -86,25 +86,25 @@
         let res = await getBookList({
           page: this.page
         })
-        if(init && res.code == ERR_OK) {
+        if (init && res.code === ERR_OK) {
           wx.stopPullDownRefresh()
           this.bookList = res.data.bookList
         }
-        if(res.code == ERR_OK && !init ) {
-          if(res.data.bookList.length>0) {
+        if (res.code === ERR_OK && !init) {
+          if (res.data.bookList.length > 0) {
             this.bookList = this.bookList.concat(res.data.bookList)
-          }else {
+          } else {
             this.hasMore = false
           }
         }
         wx.hideNavigationBarLoading()
       },
-      goDetail(id) {
+      goDetail (id) {
         wx.navigateTo({
-          url: '/pages/bookDetail/main?id='+id
+          url: '/pages/bookDetail/main?id=' + id
         })
       },
-      previewImage(imgUrl) {
+      previewImage (imgUrl) {
         wx.previewImage({
           current: imgUrl, // 当前显示图片的http链接
           urls: [imgUrl] // 需要预览的图片http链接列表
