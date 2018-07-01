@@ -3,16 +3,17 @@
         <img class="headerImg" :src="imgUrl" alt="">
         <div class="name">{{userInfo.nickName}}</div>
         <year-progress></year-progress>
-        <button @click="scanbook" class="button">添加图书</button>
+        <addbook-btn></addbook-btn>
     </div>
 </template>
 
 <script>
     import {
-      login, addBook
+      login
     } from '@/api/me'
     import {ERR_OK} from '@/api/config'
     import YearProgress from './components/YearProgress'
+    import addbookBtn from '@/components/addBookBtn'
     export default {
       data () {
         return {
@@ -54,7 +55,8 @@
         }
       },
       components: {
-        YearProgress
+        YearProgress,
+        addbookBtn
       }
     }
 </script>
@@ -70,14 +72,4 @@
             height:75px;
             margin: 10px;
             border-radius: 50%;
-        .button
-            width 80%
-            height 40px
-            line-height 40px;
-            border-radius 5px
-            color #fff
-            text-align center
-            background #EA5149
-            font-size 14px
-            margin-top 10rpx
 </style>

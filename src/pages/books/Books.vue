@@ -11,6 +11,10 @@
       </swiper>
     </div>
     <book-list :bookList='bookList'></book-list>
+    <div class="nobook text-center" v-show="bookList.length === 0">
+      <p>暂时还没有图书快去添加几本把</p>
+      <addbook-btn></addbook-btn>
+    </div>
     <div class="noMore" v-show="!hasMore">没有更多数据了~</div>
   </div>
 </template>
@@ -20,6 +24,7 @@
     getBookList, getTopList
   } from '@/api/books'
   import bookList from '@/components/bookList'
+  import addbookBtn from '@/components/addBookBtn' 
   import {
     ERR_OK
   } from '@/api/config'
@@ -33,7 +38,7 @@ export default {
       }
     },
     mounted () {
-      this._getBookList()
+      this._getBookList(true)
       this._getTopList()
     },
     async onPullDownRefresh () {
@@ -89,7 +94,8 @@ export default {
       }
     },
     components: {
-      bookList
+      bookList,
+      addbookBtn
     }
   }
 </script>
