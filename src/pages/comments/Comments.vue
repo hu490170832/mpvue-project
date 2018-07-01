@@ -5,6 +5,7 @@
             <div class="title">我的图书</div>
             <div class="mybook-list">
                 <book-list :bookList='bookList'></book-list>
+                <div class="noMore text-center" v-show="!hasMore">没有更多啦~</div>
                 <div class="tips text-center" v-show="bookList.length==0">暂时还没有图书，快去添加几本吧~</div>
             </div>
         </div>
@@ -13,55 +14,75 @@
 
 <script>
     import commentList from '@/components/commentList'
-    import {getCommentList} from '@/api/bookDetail'
-    import {getBookList} from '@/api/books'
-    import {ERR_OK} from '@/api/config'
-    import {getStorageUserInfo} from '@/common/cache'
+    import {
+        getCommentList
+    } from '@/api/bookDetail'
+    import {
+        getBookList
+    } from '@/api/books'
+    import {
+        ERR_OK
+    } from '@/api/config'
+    import {
+        getStorageUserInfo
+    } from '@/common/cache'
     import bookList from '@/components/bookList'
     export default {
-      data () {
-        return {
-          userInfo: {},
-          commentList: [],
-          bookList: [],
-          page: 0
-        }
-      },
-      mounted () {
-        this.init()
-      },
-      methods: {
-        init () {
-          this.userInfo = getStorageUserInfo()
-          this._getCommentList()
-          this._getMybooks()
+        data() {
+            return {
+                userInfo: {},
+                commentList: [],
+                bookList: [],
+                page: 0,
+                hasMore: true
+            }
         },
-        async _getCommentList () {
-          const res = await getCommentList({
-            openid: this.userInfo.openId
-          })
-          if (res.code === ERR_OK) {
-            this.commentList = res.data.commentList
-          }
+        mounted() {
+            this.init()
         },
-        async _getMybooks () {
-          const res = await getBookList({
-            openid: this.userInfo.openId,
-            page: this.page
-          })
-          if (res.code === ERR_OK) {
-            this.bookList = res.data.bookList
-          }
+        methods: {
+            init() {
+                this.userInfo = getStorageUserInfo()
+                this._getCommentList()
+                this._getMybooks()
+            },
+            async _getCommentList() {
+                const res = await getCommentList({
+                    openid: this.userInfo.openId
+                })
+                if (res.code === ERR_OK) {
+                    this.commentList = res.data.commentList
+                }
+            },
+            async _getMybooks() {
+                const res = await getBookList({
+                    openid: this.userInfo.openId,
+                    page: this.page
+                })
+                if (res.code === ERR_OK) {
+                    if (res.data.bookList.length > 0) {
+                        this.bookList = this.bookList.concat(res.data.bookList)
+                    } else {
+                        this.hasMore = false
+                    }
+                }
+            },
+        },
+        onPullDownRefresh() {
+            this.init()
+            wx.stopPullDownRefresh()
+        },
+        onReachBottom() {
+            if (!this.hasMore) {
+                return
+            }
+            this.page++
+                this._getMybooks()
+        },
+        components: {
+            commentList,
+            bookList
         }
-      },
-      onPullDownRefresh () {
-        this.init()
-        wx.stopPullDownRefresh()
-      },
-      components: {
-        commentList,
-        bookList
-      }
     }
 </script>
 
