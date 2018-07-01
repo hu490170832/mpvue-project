@@ -44,7 +44,7 @@
             init() {
                 this.userInfo = getStorageUserInfo()
                 this._getCommentList()
-                this._getMybooks()
+                this._getMybooks(true)
             },
             async _getCommentList() {
                 const res = await getCommentList({
@@ -54,30 +54,38 @@
                     this.commentList = res.data.commentList
                 }
             },
-            async _getMybooks() {
+            async _getMybooks(init) {
+                if(init) {
+                    this.page = 0,
+                    this.hasMore = true
+                }
                 const res = await getBookList({
                     openid: this.userInfo.openId,
                     page: this.page
                 })
                 if (res.code === ERR_OK) {
-                    if (res.data.bookList.length > 0) {
-                        this.bookList = this.bookList.concat(res.data.bookList)
-                    } else {
-                        this.hasMore = false
+                    if(init) {
+                        this.bookList = res.data.bookList
+                    }else {
+                        if (res.data.bookList.length > 0) {
+                            this.bookList = this.bookList.concat(res.data.bookList)
+                        } else {
+                            this.hasMore = false
+                        }
                     }
                 }
             },
         },
         onPullDownRefresh() {
             this.init()
-            wx.stopPullDownRefresh()
+            wx.stopPullDownRefresh(true)
         },
         onReachBottom() {
             if (!this.hasMore) {
                 return
             }
             this.page++
-                this._getMybooks()
+            this._getMybooks()
         },
         components: {
             commentList,
