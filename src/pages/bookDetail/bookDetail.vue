@@ -32,7 +32,10 @@
                 </div>
             </div>
         </div>
-        <comment-list v-if="isAlreadyComment" :commentList='commentList'></comment-list>
+        <div v-if="isAlreadyComment" class="commentList">
+            <comment-list type='bookDetail' :commentList='commentList'></comment-list>
+             <div class="tip text-center small-font">已经评论过了~</div>
+        </div>
         <div class="comment" v-else>
             <textarea class="textarea" maxlength="100" v-model="comment" placeholder="请输入图书短评"></textarea>
             <div class="other">
@@ -81,7 +84,6 @@
         let bookId = this.$root.$mp.query.id
         this.bookId = bookId
         const userInfo = getStorageUserInfo()
-        console.log(userInfo)
         this.openid = userInfo ? userInfo.openId : ''
         this._getBookDetail()
         this._getCommentsList()
@@ -106,11 +108,10 @@
           }
         },
         async _getCommentsList () {
-          let res = await getCommentList(this.bookId)
+          let res = await getCommentList({bookid: this.bookId})
           if (res.code === ERR_OK) {
             this.commentList = res.data.commentList
           }
-          console.log(res)
         },
         previewImg () {
           wx.previewImage({
@@ -151,7 +152,8 @@
           if (res.code === ERR_OK) {
             wx.showLoading({
               title: res.data.title,
-              mask: true
+              mask: true,
+              duration: 2000
             })
           }
         }
@@ -249,7 +251,7 @@
         .addcommon,.share-btn
             color #fff
             font-size 14px
-            margin-bottom 10px
+            margin 10px 0
 
 
 </style>

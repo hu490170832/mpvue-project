@@ -1,8 +1,8 @@
 <template>
     <div class="commentList">
-        <div class="title">评论</div>
+        <div v-show="commentList.length>0" class="title">评论</div>
         <div class="list">
-            <div class="item" v-for="item in commentList" :key="item.id">
+            <div @click="goBookDetail(item.bookid)" class="item" v-for="item in commentList" :key="item.id">
                 <div class="line1">
                     <div class="left">
                         <img :src="item.user_info.avatarUrl" alt="" class="avatar">
@@ -16,23 +16,31 @@
                 <p class="content">{{item.comment}}</p>
             </div>
         </div>
-        <div class="tip">
-            已经评论过了~
-        </div>
+      
     </div>
 </template>
 
 <script>
     export default {
-      props: ['commentList'],
+      props: ['commentList', 'type'],
+      computed: {
+      },
       created () {
+    
+      },
+      methods: {
+        goBookDetail (bookid) {
+          wx.navigateTo({
+            url: '/pages/bookDetail/main?id=' + bookid
+          })
+        }
       }
     }
 </script>
 
 <style lang='stylus' scoped>
     .commentList
-        margin 20px 0
+        margin-top 20px
         .title
             background #eeedef
             padding-left 20px
@@ -40,6 +48,8 @@
             line-height 40px
         .list
             .item
+                border-bottom 4px solid #f6f6f6
+                padding-bottom 10px
                 .line1 
                     display flex
                     padding 0 10px
@@ -56,9 +66,6 @@
                         border-radius 50%
                 .content
                     padding-left 10px
-        .tip
-            text-align center
-            font-size 12px
         .share-btn
             color #fff
             font-size 14px

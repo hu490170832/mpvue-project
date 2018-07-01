@@ -45,6 +45,6 @@ export function addComment (data) {
   return post('/weapp/addcomment', data)
 }
 
-export function getCommentList (bookid) {
-  return get('/weapp/commentList', {bookid})
+export function getCommentList (data) {
+  return get('/weapp/commentList', data)
 }

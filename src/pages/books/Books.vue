@@ -10,30 +10,7 @@
         </div>
       </swiper>
     </div>
-    <div class="bookList">
-      <a :href="'/pages/bookDetail/main?id='+item.id" v-for='item in bookList' :key = 'item.id' class="item">
-        <div class="img">
-          <img @click.stop="previewImage(item.image)" mode = 'aspectFit' :src='item.image' />
-        </div>
-        <div class="content">
-          <div class="line title-line">
-            <span class="title">{{item.title}}</span>
-            <div class="right">
-              <span class="rate">{{item.rate}}</span>
-              <rate :rate='item.rate'></rate>
-            </div>
-          </div>
-          <div class="line">
-            <span class="author">{{item.author}}</span>
-            <span class="pv">浏览量:{{item.count}}</span>
-          </div>
-          <div class="line">
-            <span class="publisher">{{item.publisher}}</span>
-            <div class="addBookName">添加人:{{item.user_info.nickName}}</div>
-          </div>
-        </div>
-      </a>
-    </div>
+    <book-list :bookList='bookList'></book-list>
     <div class="noMore" v-show="!hasMore">没有更多数据了~</div>
   </div>
 </template>
@@ -42,7 +19,7 @@
   import {
     getBookList, getTopList
   } from '@/api/books'
-  import rate from '@/components/rate'
+  import bookList from '@/components/bookList'
   import {
     ERR_OK
   } from '@/api/config'
@@ -112,10 +89,11 @@ export default {
       }
     },
     components: {
-      rate
+      bookList
     }
   }
 </script>
+
 
 <style lang='stylus' scoped>
   .books

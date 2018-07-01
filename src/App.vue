@@ -11,4 +11,6 @@
     text-align center
   .bg-red-color
     background #EA5149
+  .small-font
+    font-size 12px
 </style>
