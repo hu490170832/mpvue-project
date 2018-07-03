@@ -26,19 +26,19 @@ export function get (url, data = {}) {
           })
         }
       },
-      fail: reject,
+      fail: function(){
+        wx.hideLoading()
+          wx.showToast({
+            title: '网络错误',
+            icon: 'none',
+            duration: 2000
+          })
+          return err
+      },
       complete: function () {
         // complete
       }
     })
-  }).catch(err => {
-    wx.hideLoading()
-    wx.showToast({
-      title: '网络错误',
-      icon: 'none',
-      duration: 2000
-    })
-    return err
   })
 }
 
