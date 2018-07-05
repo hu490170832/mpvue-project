@@ -17,21 +17,9 @@
                     <span class="icon text-red-color iconfont icon-youjiantou"></span>
                 </span>
             </div>
-            <div class="swiper">
-                <swiper 
-                :autoplay="true" 
-                interval='2000' 
-                duration='300' 
-                display-multiple-items='4'
-                :circular='true'
-                >
-                    <div v-for="item in hotList" :key="item.id">
-                        <swiper-item>
-                            <image :src="item.images.medium" class="slide-image" />
-                        </swiper-item>
-                    </div>
-                </swiper>
-            </div>
+            <scroll-view class="scroll-view" :scroll-x='true'>
+                <img v-for="(item,index) in hotList" :style="translateX(index)" :key="item.id" :src="item.images.medium" class="slide-image" />
+            </scroll-view>
         </div>
     </div>
 </template>
@@ -42,6 +30,7 @@
     export default {
         data() {
             return {
+                scrollX: true,
                 hotList: []
             }
         },
@@ -55,6 +44,11 @@
                 if(res.code == ERR_OK) {
                     this.hotList = res.data.hotMovie.subjects
                 }
+            },
+            translateX(index) {
+                console.log(index)
+                const x = -index*50
+                return `left: ${x}`
             }
         }
     }
@@ -94,4 +88,12 @@
             .left
                 display flex
                 align-items center
+        .scroll-view
+            overflow:hidden;
+            white-space:nowrap;
+        .slide-image
+            display inline-block
+            width 88px
+            height 120px
+            position relative
 </style>
