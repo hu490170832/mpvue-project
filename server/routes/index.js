@@ -44,4 +44,6 @@ router.post('/addcomment', controllers.addcomment)
 
 router.get('/commentList', controllers.commentList)
 
+router.get('/gethotMovie', controllers.gethotMovie)
+
 module.exports = router

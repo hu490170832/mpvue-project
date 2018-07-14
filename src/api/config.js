@@ -1,6 +1,6 @@
-export const host = 'http://172.16.18.35:5757'
+export const host = 'http://172.16.18.35:5758'    //公司
 // export const host = 'http://192.168.0.122:5757'
-// export const host = 'https://s35dsezw.qcloud.la'
+// export const host = 'https://s35dsezw.qcloud.la'  
 export const ERR_OK = 0
 
 export function get (url, data = {}) {
@@ -26,19 +26,19 @@ export function get (url, data = {}) {
           })
         }
       },
-      fail: reject,
+      fail: function(){
+        wx.hideLoading()
+          wx.showToast({
+            title: '网络错误',
+            icon: 'none',
+            duration: 2000
+          })
+          return err
+      },
       complete: function () {
         // complete
       }
     })
-  }).catch(err => {
-    wx.hideLoading()
-    wx.showToast({
-      title: '网络错误',
-      icon: 'none',
-      duration: 2000
-    })
-    return err
   })
 }
 

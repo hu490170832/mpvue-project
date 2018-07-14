@@ -3,10 +3,10 @@ const CONF = {
     // rootPathname: '',
 
     // // 微信小程序 App ID
-    // appId: '',
+    // appId: 'wxf6718d510cf471ac',
 
     // // 微信小程序 App Secret
-    // appSecret: '',
+    // appSecret: 'pp6X0TvOsbOC1w4IXm7EWo5MgByDYvS4',
 
     // // 是否使用腾讯云代理登录小程序
     // useQcloudLogin: true,
@@ -53,13 +53,13 @@ const CONF = {
      * 开发环境下，MySQL 的初始密码为您的微信小程序 appid
      */
     mysql: {
-        host: '192.168.0.122',
-        // host: '172.16.18.35',
+        // host: '192.168.0.122',
+        host: '172.16.18.35',
         port: 3306,
         user: 'root',
         db: 'books',
-        pass: '@@hucheng00v1',
-        // pass: '3215130',
+        // pass: '@@hucheng00v1',
+        pass: '3215130',
         char: 'utf8mb4'
     },
 

@@ -1,4 +1,4 @@
-const https = require('https')
+const getJSON = require('./common')
 const {mysql} = require('../qcloud')
 
 module.exports = async (ctx) => {
@@ -35,21 +35,3 @@ module.exports = async (ctx) => {
     }
 }
 
-function getJSON (url) {
-    return new Promise((resolve, reject) => {
-        https.get(url, res => {
-            let urlData = ''
-            res.on('data', data => {
-                urlData += data
-            })
-            res.on('end', data => {
-                const bookinfo = JSON.parse(urlData)
-                if (bookinfo.title) {
-                    resolve(bookinfo)
-                } else {
-                    reject(bookinfo)
-                }
-            })
-        })
-    })
-}
