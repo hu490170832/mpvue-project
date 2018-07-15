@@ -18,7 +18,37 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <img v-for="(item,index) in hotList" :style="translateX(index)" :key="item.id" :src="item.images.medium" class="slide-image" />
+                <img v-for="item in hotList" :key="item.id" :src="item.images.medium" class="slide-image" />
+            </scroll-view>
+        </div>
+        <div class="hotMovie module">
+            <div class="title">
+                <span class="left">
+                    <span class="bg-line bg-red-color"></span>
+                    <span class="desc">近期上映</span>
+                </span>
+                <span class="right">
+                    <span class="text text-red-color">更多</span>
+                    <span class="icon text-red-color iconfont icon-youjiantou"></span>
+                </span>
+            </div>
+            <scroll-view class="scroll-view" :scroll-x='true'>
+                <img v-for="item in soonList" :key="item.id" :src="item.images.medium" class="slide-image" />
+            </scroll-view>
+        </div>
+        <div class="hotMovie module">
+            <div class="title">
+                <span class="left">
+                    <span class="bg-line bg-red-color"></span>
+                    <span class="desc">TOP250</span>
+                </span>
+                <span class="right">
+                    <span class="text text-red-color">更多</span>
+                    <span class="icon text-red-color iconfont icon-youjiantou"></span>
+                </span>
+            </div>
+            <scroll-view class="scroll-view" :scroll-x='true'>
+                <img v-for="item in topList" :key="item.id" :src="item.images.medium" class="slide-image" />
             </scroll-view>
         </div>
     </div>
@@ -31,7 +61,9 @@
         data() {
             return {
                 scrollX: true,
-                hotList: []
+                hotList: [],
+                soonList: [],
+                topList: []
             }
         },
         mounted() {
@@ -42,13 +74,10 @@
                 const res = await getHotMovie()
                 console.log(res)
                 if(res.code == ERR_OK) {
-                    this.hotList = res.data.hotMovie.subjects
+                    this.hotList = res.data.hotList.subjects
+                    this.soonList = res.data.soonList.subjects
+                    this.topList = res.data.topList.subjects
                 }
-            },
-            translateX(index) {
-                console.log(index)
-                const x = -index*50
-                return `left: ${x}`
             }
         }
     }
