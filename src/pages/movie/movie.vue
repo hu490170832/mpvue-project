@@ -18,7 +18,7 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <img v-for="item in hotList" :key="item.id" :src="item.images.medium" class="slide-image" />
+                <movie-card v-for="item in hotList" :key="item.id" :movieInfo='item' />
             </scroll-view>
         </div>
         <div class="hotMovie module">
@@ -33,7 +33,7 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <img v-for="item in soonList" :key="item.id" :src="item.images.medium" class="slide-image" />
+                <movie-card v-for="item in soonList" :key="item.id" :movieInfo='item' />
             </scroll-view>
         </div>
         <div class="hotMovie module">
@@ -48,7 +48,7 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <img v-for="item in topList" :key="item.id" :src="item.images.medium" class="slide-image" />
+                <movie-card v-for="item in topList" :key="item.id" :movieInfo='item' />
             </scroll-view>
         </div>
     </div>
@@ -57,6 +57,7 @@
 <script>
     import {getHotMovie} from '@/api/movie'
     import {ERR_OK} from '@/api/config'
+    import movieCard from '@/components/movieCard'
     export default {
         data() {
             return {
@@ -79,6 +80,9 @@
                     this.topList = res.data.topList.subjects
                 }
             }
+        },
+        components: {
+            movieCard
         }
     }
 </script>
@@ -120,9 +124,4 @@
         .scroll-view
             overflow:hidden;
             white-space:nowrap;
-        .slide-image
-            display inline-block
-            width 88px
-            height 120px
-            position relative
 </style>
