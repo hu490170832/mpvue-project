@@ -11,6 +11,7 @@
     "lint": "eslint --fix --ext .js,.vue src server/controllers"
   },
   "dependencies": {
+    "async": "^2.6.1",
     "mpvue": "^1.0.11",
     "vuex": "^3.0.1",
     "wafer2-client-sdk": "^2.0.0"

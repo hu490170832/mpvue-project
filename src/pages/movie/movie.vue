@@ -12,13 +12,15 @@
                     <span class="bg-line bg-red-color"></span>
                     <span class="desc">正在热映</span>
                 </span>
-                <span class="right">
+                <a href="/pages/more-movie/main?type=1" class="right">
                     <span class="text text-red-color">更多</span>
                     <span class="icon text-red-color iconfont icon-youjiantou"></span>
-                </span>
+                </a>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <movie-card v-for="item in hotList" :key="item.id" :movieInfo='item' />
+                <div class="movieCard-container" v-for="item in hotList" :key="item.id">
+                    <movie-card :movieInfo='item' />
+                </div>
             </scroll-view>
         </div>
         <div class="hotMovie module">
@@ -33,7 +35,9 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <movie-card v-for="item in soonList" :key="item.id" :movieInfo='item' />
+                <div class="movieCard-container" v-for="item in soonList" :key="item.id">
+                    <movie-card :movieInfo='item' />
+                </div>
             </scroll-view>
         </div>
         <div class="hotMovie module">
@@ -48,7 +52,9 @@
                 </span>
             </div>
             <scroll-view class="scroll-view" :scroll-x='true'>
-                <movie-card v-for="item in topList" :key="item.id" :movieInfo='item' />
+                <div class="movieCard-container" v-for="item in topList" :key="item.id">
+                    <movie-card :movieInfo='item' />
+                </div>
             </scroll-view>
         </div>
     </div>
@@ -73,7 +79,6 @@
         methods: {
             async _getHotMovie() {
                 const res = await getHotMovie()
-                console.log(res)
                 if(res.code == ERR_OK) {
                     this.hotList = res.data.hotList.subjects
                     this.soonList = res.data.soonList.subjects
@@ -124,4 +129,7 @@
         .scroll-view
             overflow:hidden;
             white-space:nowrap;
+            .movieCard-container
+                width 288px
+                display inline-block
 </style>

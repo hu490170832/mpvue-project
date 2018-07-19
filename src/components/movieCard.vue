@@ -22,7 +22,7 @@
 <style lang='stylus' scoped>
     .movieCard
         display inline-block
-        width 88px
+        width 100
         height 120px
         position relative
         .name
@@ -30,13 +30,14 @@
             width 100%
             overflow hidden
             text-overflow ellipsis
+            white-space nowrap
         .rate
             display flex
             .point
                 color #999
         .slide-image
             display inline-block
-            width 88px
+            width 100%
             height 120px
             position relative
 
