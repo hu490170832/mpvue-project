@@ -130,6 +130,6 @@
             overflow:hidden;
             white-space:nowrap;
             .movieCard-container
-                width 288px
+                // width 288px
                 display inline-block
 </style>

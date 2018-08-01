@@ -1,6 +1,8 @@
 <template>
     <div class="movieCard">
-        <img :src="movieInfo.images.medium" class="slide-image" />
+        <div class="img-container">
+            <img :src="movieInfo.images.medium" mode='widthFix' class="slide-image" />
+        </div>
         <p class="name">{{movieInfo.original_title}}</p>
         <div class="rate">
             <rate :rate='movieInfo.rating.average' />
@@ -22,7 +24,7 @@
 <style lang='stylus' scoped>
     .movieCard
         display inline-block
-        width 100
+        width 80px
         height 120px
         position relative
         .name
@@ -35,10 +37,14 @@
             display flex
             .point
                 color #999
+        .img-container
+            width 80px
+            height 110px
+            overflow hidden
         .slide-image
             display inline-block
-            width 100%
-            height 120px
+            width 80px
+            overflow hidden
             position relative
 
 </style>
